@@ -106,6 +106,12 @@ public class FlatButton extends Button {
 			}
 			break;
 
+        case MotionEvent.ACTION_CANCEL:
+            status = NORMAL_STATUS;
+            objectAnimator.cancel();
+            setRadius(0);
+            break;
+
 		case MotionEvent.ACTION_UP:
 			if (status != FOCUS_STATUS) {
 				return true;
