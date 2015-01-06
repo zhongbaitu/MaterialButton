@@ -18,7 +18,6 @@ public class FlatButton extends Button {
 	private final int NORMAL_STATUS = 0;
 	private final int DISABLE_STATUS = 1;
 	private final int FOCUS_STATUS = 2;
-	private final int PRESSED_STATUS = 3;
 	protected int status = NORMAL_STATUS;
 	
 	protected final int NORMAL_TEXTCOLOR = 0xff000000;
@@ -116,7 +115,6 @@ public class FlatButton extends Button {
 			if (status != FOCUS_STATUS) {
 				return true;
 			}
-			status = PRESSED_STATUS;
 			objectAnimator.cancel();
 			animatorSet.playTogether(
 					ObjectAnimator.ofFloat(this, "radius", radius, radius * 2),
@@ -139,7 +137,10 @@ public class FlatButton extends Button {
 
 				@Override
 				public void onAnimationEnd(Animator arg0) {
-					status = NORMAL_STATUS;
+					if(status != DISABLE_STATUS){
+						status = NORMAL_STATUS;
+					}
+					
 					bgAlpha = 255;
 					setRadius(0);
 				}
